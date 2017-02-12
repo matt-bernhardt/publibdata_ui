@@ -17,6 +17,15 @@ $app->get('/', function () use ($app) {
 ->bind('homepage')
 ;
 
+$app->get('/libraries', function () { 
+    return "Library index page"; 
+});
+
+$app->get('/library/{id}', function ($id) { 
+    return "Library detail page: {$id}"; 
+})
+->value("id", ""); // set a default value
+
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {
         return;
@@ -31,22 +40,4 @@ $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     );
 
     return new Response($app['twig']->resolveTemplate($templates)->render(array('code' => $code)), $code);
-});
-
-$app->get('/libraries', function () { 
-    return "Library index page"; 
-});
-
-$app->get('/foo/{id}', function ($id) { 
-    return "Library detail page {$id}"; 
-})
-->value("id", 0) // set a default value
-->assert("id", "\d+"); // make sure ID is numeric
-
-$app->get('/library', function () { 
-    return "detail page"; 
-});
-
-$app->get('/library/bar', function () { 
-    return "detail page bar"; 
 });
