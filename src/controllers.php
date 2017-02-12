@@ -17,9 +17,7 @@ $app->get('/', function () use ($app) {
 ->bind('homepage')
 ;
 
-$app->get('/libraries', function () { 
-    return "Library index page"; 
-});
+$app->get('/library/{id}', function ($id) use ($app) {
 
 $app->get('/library_api/{id}', function ($id) use ($app) { 
   
