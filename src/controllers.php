@@ -27,6 +27,7 @@ $app->get('/library_api/{id}', function ($id) use ($app) {
   $params = [
       'index' => 'publiclibdata',
       'type' => 'logs',
+      'size' => 500,
       'body' => [
           'query' => [
               'match' => [
@@ -40,6 +41,27 @@ $app->get('/library_api/{id}', function ($id) use ($app) {
   return new JsonResponse($response);
 })
 ->value("id", "*"); // set a default value
+
+$app->get('/library_year/{id}', function ($id) use ($app) { 
+  
+  $client = $app['elasticsearch'];
+  $params = [
+      'index' => 'publiclibdata',
+      'type' => 'logs',
+      'size' => 500,
+      'body' => [
+          'query' => [
+              'match' => [
+                  'Year' => trim($id)
+              ]
+          ]
+      ]
+  ];
+  
+  $response = $client->search($params);
+  return new JsonResponse($response);
+})
+->value("id", "2016"); // set a default value
 
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {
