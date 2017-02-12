@@ -20,6 +20,47 @@ var visCirc = d3.select("div#circ div.right").append("svg:svg")
 	.attr("width",w)
 	.attr("height",h);
 
+// ILL Received
+var visIllIn = d3.select("div#illReceived div.right").append("svg:svg")
+	.attr("width",w)
+	.attr("height",h);
+
+// ILL Provided
+var visIllOut = d3.select("div#illProvided div.right").append("svg:svg")
+	.attr("width",w)
+	.attr("height",h);
+
+// Computers
+var visComputers = d3.select("div#computers div.right").append("svg:svg")
+	.attr("width",w)
+	.attr("height",h);
+
+// Internet
+var visInternet = d3.select("div#internet div.right").append("svg:svg")
+	.attr("width",w)
+	.attr("height",h);
+
+// Program Total
+var visProgTotal = d3.select("div#programTotal div.right").append("svg:svg")
+	.attr("width",w)
+	.attr("height",h);
+
+// Program - Children
+var visProgChildren = d3.select("div#programChildren div.right").append("svg:svg")
+	.attr("width",w)
+	.attr("height",h);
+
+// Program - Teen
+var visProgTeen = d3.select("div#programTeen div.right").append("svg:svg")
+	.attr("width",w)
+	.attr("height",h);
+
+// Program - Adult
+var visProgAdult = d3.select("div#programAdult div.right").append("svg:svg")
+	.attr("width",w)
+	.attr("height",h);
+
+
 d3.json("/library_year/2016", function(error, data) {
 
 	if ( error ) {
@@ -40,6 +81,30 @@ d3.json("/library_year/2016", function(error, data) {
 		buildFrame(visCirc);
 		plotAllGeneric(records, visCirc, 'Direct Circ', 0, 5000000);
 
+		buildFrame(visIllIn);
+		plotAllGeneric(records, visIllIn, 'ILL Received', 0, 250000);
+
+		buildFrame(visIllOut);
+		plotAllGeneric(records, visIllOut, 'ILL Provided', 0, 175000);
+
+		buildFrame(visComputers);
+		plotAllGeneric(records, visComputers, "1 Number of public use Internet computers available in the library (including children's area) and its branches and bookmobiles", 0, 800);
+
+		buildFrame(visInternet);
+		plotAllGeneric(records, visInternet, 'Number of Users of Public Internet Computers Per Year - IMLS', 0, 850000);
+
+		buildFrame(visProgTotal);
+		plotAllGeneric(records, visProgTotal, '8 Total Attendance at All Programs', 0, 250000);
+
+		buildFrame(visProgChildren);
+		plotAllGeneric(records, visProgChildren, "6 Total Attendance at all Children's Programs", 0, 150000);
+
+		buildFrame(visProgTeen);
+		plotAllGeneric(records, visProgTeen, '4 Total attendance at YA programs', 0, 10000);
+
+		buildFrame(visProgAdult);
+		plotAllGeneric(records, visProgAdult, '2 Total attendance at all adult programs', 0, 85000);
+
 	}
 });
 
@@ -59,6 +124,22 @@ d3.json( api_url, function(error, data) {
 		plotAllLibrary(libraryData, visVisits, 'Visitors', 0, 3750000);
 
 		plotAllLibrary(libraryData, visCirc, 'Direct Circ', 0, 5000000);
+
+		plotAllLibrary(libraryData, visIllIn, 'ILL Received', 0, 250000);
+
+		plotAllLibrary(libraryData, visIllOut, 'ILL Provided', 0, 175000);
+
+		plotAllLibrary(libraryData, visComputers, "1 Number of public use Internet computers available in the library (including children's area) and its branches and bookmobiles", 0, 800);
+
+		plotAllLibrary(libraryData, visInternet, 'Number of Users of Public Internet Computers Per Year - IMLS', 0, 850000);
+
+		plotAllLibrary(libraryData, visProgTotal, '8 Total Attendance at All Programs', 0, 250000);
+
+		plotAllLibrary(libraryData, visProgChildren, "6 Total Attendance at all Children's Programs", 0, 150000);
+
+		plotAllLibrary(libraryData, visProgTeen, '4 Total attendance at YA programs', 0, 10000);
+
+		plotAllLibrary(libraryData, visProgAdult, '2 Total attendance at all adult programs', 0, 85000);
 	}
 });
 
