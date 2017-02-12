@@ -1,31 +1,41 @@
-@import url('https://fonts.googleapis.com/css?family=Bitter|Lato|Montserrat|Roboto|Roboto+Slab|Open+Sans|Droid+Sans');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
 * {
 	margin: 0;
-	font-family:'Roboto', 'Lato', 'Roboto Slab', 'Trebuchet MS', sans-serif;
+	font-family:'Open Sans', sans-serif;
 	box-sizing:border-box;
 }
 
-/* is this bad form? probably */
 html {
 	min-height:100%;
 }
 
 body {
-	/* background: #4c86a5; */
+	background: #333;
 	font-size:1.5em;
 }
+
+body {
+	 display: flex;
+	 min-height: 100vh;
+	 flex-direction: column;
+ }
+
+ .container {
+	 flex: 1 0 auto;
+ }
 
 .container {
 	width:98%;
 	background:#fff;
   margin: 0 auto;
 	padding:1em 0.5em;
+	min-height:100%;
 }
 
 h1 {
 	display:block;
-	background:#4c86a5;
+	background:#333;
 	color:#fff;
 	padding:0.25em;
 	margin-bottom:0.25em;
@@ -36,8 +46,31 @@ h1 a {
 	color: #fff;
 }
 
-.intro {
+.intro p {
 	padding:0.5em;
+}
+
+.intro {
+	margin:0;
+}
+
+select.dropdown {
+	height:40px;
+	width:250px;
+	margin-left:1em;
+	font-size:0.8em;
+}
+
+.label {
+	color:#fff;
+	padding:0.25em;
+	display:inline-block;
+}
+
+.caption {
+	font-weight:normal;
+	font-size:0.8em;
+	display:block;
 }
 
 #pop {
@@ -45,9 +78,17 @@ h1 a {
 	border-bottom:2px solid #9A3F7A;
 }
 
+#pop .label {
+	background:#9A3F7A;
+}
+
 #budget {
 	color:#38863C;
 	border-bottom:2px solid #38863C;
+}
+
+#budget .label {
+	background:#38863C;
 }
 
 #visits {
@@ -55,9 +96,18 @@ h1 a {
 	border-bottom:2px solid #007B7C;
 }
 
+#visits .label {
+	background:#007B7C;
+	margin-top:0.5em;
+}
+
 #circ {
 	color:#E57D38;
 	border-bottom:2px solid #E57D38;
+}
+
+#circ .label {
+	background:#E57D38;
 }
 
 #illReceived, #illProvided {
@@ -65,9 +115,17 @@ h1 a {
 	border-bottom:2px solid #135078;
 }
 
+#illReceived .label, #illProvided .label {
+	background:#135078;
+}
+
 #computers {
 	color:#333;
 	border-bottom:2px solid #333;
+}
+
+#computers .label {
+	background:#333;
 }
 
 #internet {
@@ -75,29 +133,49 @@ h1 a {
 	border-bottom:2px solid #87B146;
 }
 
-#programTotal {
-	color:#036277;
-	border-bottom:2px solid #036277;
+#internet .label {
+	background:#87B146;
 }
 
-#programChildren p, #programTeen p, #programAdult p {
-	margin-top:-1em;
-	margin-left:1em;
+#programTotal {
+	color:#036277;
+	/* border-bottom:2px solid #036277; */
+}
+
+#programTotal .label {
+	background:#036277;
+	margin-top:0.5em;
 }
 
 #programChildren {
 	color:#685CA2;
-	border-bottom:2px solid #685CA2;
+	/* border-bottom:2px solid #685CA2; */
+}
+
+#programChildren .label {
+	background:#685CA2;
 }
 
 #programTeen {
 	color:#C83944;
-	border-bottom:2px solid #C83944;
+	/* border-bottom:2px solid #C83944; */
+}
+
+#programTeen .label {
+	background:#C83944;
 }
 
 #programAdult {
 	color:#E57D38;
-	border-bottom:2px solid #E57D38;
+	/* border-bottom:2px solid #E57D38; */
+}
+
+#programAdult .label {
+	background:#E57D38;
+}
+
+#programChildren > div, div#programTeen, div#programAdult {
+	margin:0;
 }
 
 div {
@@ -105,15 +183,25 @@ div {
 	padding:0.5em;
 }
 
+div.subprograms {
+	margin-left:2em;
+	border-left:4px solid #036277;
+	margin-top:0;
+}
+
+div#programTotal {
+	margin-bottom:-2em;
+}
+
 .left {
 	float:left;
-	width:30%;
+	width:29%;
 	font-weight:bold;
 }
 
 .right {
 	float:right;
-	width:50%;
+	width:70%;
 }
 
 .clear {
@@ -133,4 +221,17 @@ a.go {
 
 a.go:hover {
 	background:#0295b5;
+}
+
+.footer {
+	font-weight:bold;
+	margin:1em;
+	color:#fff;
+}
+
+@media screen and (max-width:800px) {
+	.left, .right {
+		display:inline-block;
+		width:100%;
+	}
 }
