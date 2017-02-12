@@ -13,14 +13,22 @@ d3.json("/library_year/2016", function(error, data) {
 			.attr("width",w)
 			.attr("height",h);
 		buildFrame(visPop);
-		plotAllPop(records, visPop);
+		plotAllGeneric(records, visPop, 'Municipality Population-- do not change or edit - click to see definition', 0, 650000);
 
 		// Plot shell
 		var visBudget = d3.select("div#budget div.right").append("svg:svg")
 			.attr("width",w)
 			.attr("height",h);
 		buildFrame(visBudget);
-		plotAllBudget(records, visBudget);
+		plotAllGeneric(records, visBudget, 'Total Appropriated Municipal Income--Operating', 0, 35000000);
+		// plotAllGeneric = function(data, element, field, min, max) {}
+
+		// Visits
+		var visVisits = d3.select("div#visits div.right").append("svg:svg")
+			.attr("width",w)
+			.attr("height",h);
+		buildFrame(visVisits);
+		plotAllGeneric(records, visVisits, 'Visitors', 0, 3750000);
 
 		// plotInfo(records, visPop);
 
@@ -102,11 +110,11 @@ cleanData = function(data) {
 	return newData;
 };
 
-plotAllPop = function(data, element) {
+plotAllGeneric = function(data, element, field, min, max) {
 
 	// Scale
 	var plotRange = d3.scaleLinear()
-		.domain([0,650000]) // Range of data
+		.domain([min,max]) // Range of data
 		.range([0,w]); // Range of plot
 
 	// Context lines
@@ -117,31 +125,9 @@ plotAllPop = function(data, element) {
 		.data(data)
 		.enter()
 		.append("line")
-			.attr("x1", function(d) { return plotRange( d['Municipality Population-- do not change or edit - click to see definition'] )	})
+			.attr("x1", function(d) { return plotRange( d[field] ) })
 			.attr("y1", h * 0.35)
-			.attr("x2", function(d) { return plotRange( d['Municipality Population-- do not change or edit - click to see definition'] ) })
-			.attr("y2", h * 0.65);
-
-};
-
-plotAllBudget = function(data, element) {
-
-	// Scale
-	var plotRange = d3.scaleLinear()
-		.domain([0,35000000]) // Range of data
-		.range([0,w]); // Range of plot
-
-	// Context lines
-	var context = element.append("g")
-		.attr("class","context");
-
-	context.selectAll("line")
-		.data(data)
-		.enter()
-		.append("line")
-			.attr("x1", function(d) { return plotRange( d['Total Appropriated Municipal Income--Operating'] )	})
-			.attr("y1", h * 0.35)
-			.attr("x2", function(d) { return plotRange( d['Total Appropriated Municipal Income--Operating'] ) })
+			.attr("x2", function(d) { return plotRange( d[field] ) })
 			.attr("y2", h * 0.65);
 
 };
