@@ -21,13 +21,13 @@ $app->get('/library/{id}', function ($id) use ($app) {
     return $app['twig']->render('library.html.twig', array(id => $id));
 });
 
-$app->get('/library_api/{id}', function ($id) use ($app) { 
+$app->get('/library_location/{id}', function ($id) use ($app) { 
   
   $client = $app['elasticsearch'];
   $params = [
       'index' => 'publiclibdata',
       'type' => 'logs',
-      'size' => 500,
+      'size' => 5,
       'body' => [
           'query' => [
               'match' => [
