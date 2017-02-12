@@ -19,9 +19,25 @@ $app->get('/', function () use ($app) {
 
 $app->get('/library/{id}', function ($id) use ($app) {
 
-    return $app['twig']->render('library.html.twig', array('id' => $id ) );
+$app->get('/library_api/{id}', function ($id) use ($app) { 
+  
+  $client = $app['elasticsearch'];
+  $params = [
+      'index' => 'publiclib',
+      'type' => 'logs',
+      'body' => [
+          'query' => [
+              'match' => [
+                  'Location' => trim($id)
+              ]
+          ]
+      ]
+  ];
+  
+  $response = $client->search($params);
+  return new JsonResponse($response);
 })
-->value("id", ""); // set a default value
+->value("id", "*"); // set a default value
 
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {
