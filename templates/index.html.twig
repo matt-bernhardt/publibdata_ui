@@ -54,7 +54,7 @@
     <option value="Brimfield">Brimfield</option>
     <option value="Brockton">Brockton</option>
     <option value="Brookfield">Brookfield</option>
-    <option value="Brookline">Brookline</option>
+    <option value="Brookline - Brookline Public Library">Brookline</option>
     <option value="Buckland">Buckland</option>
     <option value="Burlington">Burlington</option>
     <option value="Cambridge">Cambridge</option>
@@ -360,4 +360,19 @@
     <option value="Wrentham">Wrentham</option>
     <option value="Yarmouth">Yarmouth</option>
   </select>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',function() {
+    document.querySelector('select[name="municipality"]').onchange=changeEventHandler;
+},false);
+
+function changeEventHandler(event) {
+    // You can use “this” to refer to the selected element.
+    if (!event.target.value) {
+        alert('Please Select One');
+    } else {
+        toUrl = "/library/" + event.target.value;
+        location.replace( toUrl );
+    }
+}
+</script>
 {% endblock %}
