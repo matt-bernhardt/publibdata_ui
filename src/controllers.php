@@ -25,7 +25,7 @@ $app->get('/library_api/{id}', function ($id) use ($app) {
   
   $client = $app['elasticsearch'];
   $params = [
-      'index' => 'publiclib',
+      'index' => 'publiclibdata',
       'type' => 'logs',
       'body' => [
           'query' => [

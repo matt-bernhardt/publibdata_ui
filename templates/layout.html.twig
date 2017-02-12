@@ -7,6 +7,7 @@
 
         <meta charset="UTF-8">
 
+        <script src="https://d3js.org/d3.v4.min.js"></script>
         <script type="text/javascript">
             var _gaq = _gaq || [];
             _gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
@@ -24,5 +25,22 @@
             <h1><a href="/">PubLibData</a></h1>
             {% block content %}{% endblock %}
         </div>
+        <script type="text/javascript" src="/js/plots.js"></script>
+        <style type="text/css">
+            svg g.scale line {
+                stroke-width: 1;
+                stroke: #ccc;
+            }
+
+            svg g.context line {
+                stroke-width: 1;
+                stroke: #565656;
+            }
+
+            svg g.highlight line {
+                stroke-width: 2;
+                stroke: red;
+            }
+        </style>
     </body>
 </html>
