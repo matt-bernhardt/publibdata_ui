@@ -3,7 +3,9 @@
     <head>
         <title>{% block title '' %} - Public Library Data Visualizer</title>
 
-        <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
+
+        <meta charset="UTF-8">
 
         <script type="text/javascript">
             var _gaq = _gaq || [];
@@ -18,6 +20,9 @@
         </script>
     </head>
     <body>
-        {% block content %}{% endblock %}
+        <div class="container">
+            <h1><a href="/">PubLibData</a></h1>
+            {% block content %}{% endblock %}
+        </div>
     </body>
 </html>

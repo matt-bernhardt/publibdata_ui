@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css?family=Bitter|Lato|Montserrat|Roboto|Roboto+Slab|Open+Sans|Droid+Sans');
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
+* {
+	margin: 0;
+	font-family:'Roboto', 'Lato', 'Roboto Slab', 'Trebuchet MS', sans-serif;
+	box-sizing:border-box;
+}
+
+/* is this bad form? probably */
+html {
+	min-height:100%;
+}
+
+body {
+	/* background: #4c86a5; */
+	font-size:1.5em;
+}
+
+.container {
+	width:98%;
+	background:#fff;
+  margin: 0 auto;
+	padding:1em 0.5em;
+}
+
+h1 {
+	display:block;
+	background:#4c86a5;
+	color:#fff;
+	padding:0.25em;
+	margin-bottom:0.25em;
+}
+
+h1 a {
+	text-decoration: none;
+	color: #fff;
+}
+
+.intro {
+	padding:0.5em;
+}
+
+#pop {
+	color:#9A3F7A;
+	border-bottom:2px solid #9A3F7A;
+}
+
+#budget {
+	color:#38863C;
+	border-bottom:2px solid #38863C;
+}
+
+#visits {
+	color:#007B7C;
+	border-bottom:2px solid #007B7C;
+}
+
+#circ {
+	color:#E57D38;
+	border-bottom:2px solid #E57D38;
+}
+
+#illReceived, #illProvided {
+	color:#135078;
+	border-bottom:2px solid #135078;
+}
+
+#computers {
+	color:#333;
+	border-bottom:2px solid #333;
+}
+
+#internet {
+	color:#87B146;
+	border-bottom:2px solid #87B146;
+}
+
+#programTotal {
+	color:#036277;
+	border-bottom:2px solid #036277;
+}
+
+#programChildren p, #programTeen p, #programAdult p {
+	margin-top:-1em;
+	margin-left:1em;
+}
+
+#programChildren {
+	color:#685CA2;
+	border-bottom:2px solid #685CA2;
+}
+
+#programTeen {
+	color:#C83944;
+	border-bottom:2px solid #C83944;
+}
+
+#programAdult {
+	color:#E57D38;
+	border-bottom:2px solid #E57D38;
+}
+
+div {
+	margin:1.5em 0;
+	padding:0.5em;
+}
+
+.left {
+	float:left;
+	width:30%;
+	font-weight:bold;
+}
+
+.right {
+	float:right;
+	width:50%;
+}
+
+.clear {
+	clear:both;
+}
+
+.fa:hover {
+	opacity:0.8;
+}
+
+a.go {
+	background:#036277;
+	color:#fff;
+	text-decoration:none;
+	padding:0.5em;
+}
+
+a.go:hover {
+	background:#0295b5;
+}
