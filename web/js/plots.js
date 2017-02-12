@@ -1,4 +1,4 @@
-var w = 720, h = 210;
+var w = 1000, h = 100;
 
 // Plot shell
 var visPop = d3.select("div#pop div.right").append("svg:svg")
