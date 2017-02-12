@@ -17,11 +17,17 @@ $app->get('/', function () use ($app) {
 ->bind('homepage')
 ;
 
-$app->get('/foos', function () { 
-    return "Library index page"; 
+$app->get('/foos', function () use ($app) {
+
+    $values = array(
+        'id' => 'foo',
+        'foo' => 'bar'
+    );
+
+    return $app['twig']->render('detail.html.twig', $values);
 });
 
-$app->get('/foo/{id}', function ($id) { 
+$app->get('/foo/{id}', function ($id) {
     return "Library detail page: {$id}"; 
 })
 ->value("id", ""); // set a default value
