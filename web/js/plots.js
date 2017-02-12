@@ -30,6 +30,13 @@ d3.json("/library_year/2016", function(error, data) {
 		buildFrame(visVisits);
 		plotAllGeneric(records, visVisits, 'Visitors', 0, 3750000);
 
+		// Circulation
+		var visVisits = d3.select("div#circ div.right").append("svg:svg")
+			.attr("width",w)
+			.attr("height",h);
+		buildFrame(visVisits);
+		plotAllGeneric(records, visVisits, 'Direct Circ', 0, 5000000);
+
 		// plotInfo(records, visPop);
 
 	}
