@@ -1,5 +1,25 @@
 var w = 1000, h = 100;
 
+// Plot shell
+var visPop = d3.select("div#pop div.right").append("svg:svg")
+	.attr("width",w)
+	.attr("height",h);
+
+// Plot shell
+var visBudget = d3.select("div#budget div.right").append("svg:svg")
+	.attr("width",w)
+	.attr("height",h);
+
+// Visits
+var visVisits = d3.select("div#visits div.right").append("svg:svg")
+	.attr("width",w)
+	.attr("height",h);
+
+// Circulation
+var visCirc = d3.select("div#circ div.right").append("svg:svg")
+	.attr("width",w)
+	.attr("height",h);
+
 d3.json("/library_year/2016", function(error, data) {
 
 	if ( error ) {
@@ -8,37 +28,37 @@ d3.json("/library_year/2016", function(error, data) {
 
 		var records = cleanAllData(data.hits.hits);
 
-		// Plot shell
-		var visPop = d3.select("div#pop div.right").append("svg:svg")
-			.attr("width",w)
-			.attr("height",h);
 		buildFrame(visPop);
 		plotAllGeneric(records, visPop, 'Municipality Population-- do not change or edit - click to see definition', 0, 650000);
 
-		// Plot shell
-		var visBudget = d3.select("div#budget div.right").append("svg:svg")
-			.attr("width",w)
-			.attr("height",h);
 		buildFrame(visBudget);
 		plotAllGeneric(records, visBudget, 'Total Appropriated Municipal Income--Operating', 0, 35000000);
-		// plotAllGeneric = function(data, element, field, min, max) {}
 
-		// Visits
-		var visVisits = d3.select("div#visits div.right").append("svg:svg")
-			.attr("width",w)
-			.attr("height",h);
 		buildFrame(visVisits);
 		plotAllGeneric(records, visVisits, 'Visitors', 0, 3750000);
 
-		// Circulation
-		var visVisits = d3.select("div#circ div.right").append("svg:svg")
-			.attr("width",w)
-			.attr("height",h);
-		buildFrame(visVisits);
-		plotAllGeneric(records, visVisits, 'Direct Circ', 0, 5000000);
+		buildFrame(visCirc);
+		plotAllGeneric(records, visCirc, 'Direct Circ', 0, 5000000);
 
-		// plotInfo(records, visPop);
+	}
+});
 
+var api_url = window.location.pathname.replace('/library/','/library_location/');
+d3.json( api_url, function(error, data) {
+
+	if ( error ) {
+		console.log( error );
+	} else {
+
+		var libraryData = cleanLibraryData(data.hits.hits);
+
+		plotAllLibrary(libraryData, visPop, 'Municipality Population-- do not change or edit - click to see definition', 0, 650000);
+
+		plotAllLibrary(libraryData, visBudget, 'Total Appropriated Municipal Income--Operating', 0, 35000000);
+
+		plotAllLibrary(libraryData, visVisits, 'Visitors', 0, 3750000);
+
+		plotAllLibrary(libraryData, visCirc, 'Direct Circ', 0, 5000000);
 	}
 });
 
@@ -81,6 +101,24 @@ cleanAllData = function(data) {
 
 	for (i = 0; i < data.length; i++) {
 		newData.push(data[i]._source);
+	}
+
+	console.log('Cleaned:');
+	console.log(newData);
+
+	return newData;
+}
+
+cleanLibraryData = function(data) {
+	console.log('Cleaning data');
+	console.log(data);
+
+	var newData = [];
+
+	for (i = 0; i < data.length; i++) {
+		if (data[i]._source['Year'] == 2016) {
+			newData.push(data[i]._source);
+		}
 	}
 
 	console.log('Cleaned:');
@@ -136,6 +174,28 @@ plotAllGeneric = function(data, element, field, min, max) {
 			.attr("y1", h * 0.35)
 			.attr("x2", function(d) { return plotRange( d[field] ) })
 			.attr("y2", h * 0.65);
+
+};
+
+plotAllLibrary = function(data, element, field, min, max) {
+
+	// Scale
+	var plotRange = d3.scaleLinear()
+		.domain([min,max]) // Range of data
+		.range([0,w]); // Range of plot
+
+	// Highlight line
+	var highlight = element.append("g")
+		.attr("class","highlight");
+
+	highlight.selectAll("line")
+		.data(data)
+		.enter()
+		.append("line")
+			.attr("x1", function(d) { return plotRange( d[field] ) })
+			.attr("y1", h * 0.2)
+			.attr("x2", function(d) { return plotRange( d[field] ) })
+			.attr("y2", h * 0.8);
 
 };
 
