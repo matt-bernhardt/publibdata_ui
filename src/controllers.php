@@ -17,23 +17,9 @@ $app->get('/', function () use ($app) {
 ->bind('homepage')
 ;
 
-$app->get('/foos', function () use ($app) {
+$app->get('/library/{id}', function ($id) use ($app) {
 
-    $values = array(
-        'id' => 'foo',
-        'foo' => 'bar'
-    );
-
-    return $app['twig']->render('detail.html.twig', $values);
-});
-
-$app->get('/foo/{id}', function ($id) {
-    return "Library detail page: {$id}"; 
-})
-->value("id", ""); // set a default value
-
-$app->get('/library/{id}', function ($id) {
-    return "Library detail! {$id}";
+    return $app['twig']->render('library.html.twig', array('id' => $id ) );
 })
 ->value("id", ""); // set a default value
 
