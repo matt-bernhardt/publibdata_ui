@@ -18,7 +18,7 @@ $app->get('/', function () use ($app) {
 ;
 
 $app->get('/library/{id}', function ($id) use ($app) {
-    return $app['twig']->render('library.html.twig', array(id => $id));
+    return $app['twig']->render('library.html.twig', array('id' => $id));
 });
 
 $app->get('/library_api/{id}', function ($id) use ($app) { 
