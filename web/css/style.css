@@ -82,6 +82,10 @@ select.dropdown {
 	background:#9A3F7A;
 }
 
+#pop > div {
+	margin-top: 0;
+}
+
 #budget {
 	color:#38863C;
 	border-bottom:2px solid #38863C;
