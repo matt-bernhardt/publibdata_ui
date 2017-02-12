@@ -41,6 +41,48 @@ $app->get('/library_api/{id}', function ($id) use ($app) {
 })
 ->value("id", "*"); // set a default value
 
+$app->get('/library_api_autocomplete/{id}', function ($id) use ($app) { 
+  // example query http://localhost:8282/library_api_autocomplete/*
+  // This one uses the new, fixed index 
+  // Facets come back in the Buckets object
+  if  (empty($id)) {
+    $id = "*";
+  }
+  $client = $app['elasticsearch'];
+  $params = [
+      'index' => 'publiclibdata',
+      'type' => 'logs',
+      'from' => 0,
+      'size' => 100,
+      "_source" => [
+          "Location"
+        ],
+      'body' => [
+          'query' => [
+            "query_string" => [
+                 "default_field" => "Location",
+                 "query" => "{$id}"
+                   ]
+          ],
+      "aggregations" => [
+            "libraries" => [
+                "terms" => [
+                  "field" => "Location.keyword",
+                  "size" => 500
+                  ]
+                ],
+              "Years" => [
+                  "terms" => [
+                    "field" => "Year.keyword"
+                      ]
+                ],
+              ]
+      ]
+  ];
+  $response = $client->search($params);
+  return new JsonResponse($response);
+})
+->value("id", "*"); // set a default value
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {
         return;
