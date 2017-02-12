@@ -17,12 +17,17 @@ $app->get('/', function () use ($app) {
 ->bind('homepage')
 ;
 
-$app->get('/libraries', function () { 
+$app->get('/foos', function () { 
     return "Library index page"; 
 });
 
-$app->get('/library/{id}', function ($id) { 
+$app->get('/foo/{id}', function ($id) { 
     return "Library detail page: {$id}"; 
+})
+->value("id", ""); // set a default value
+
+$app->get('/library/{id}', function ($id) {
+    return "Library detail! {$id}";
 })
 ->value("id", ""); // set a default value
 
