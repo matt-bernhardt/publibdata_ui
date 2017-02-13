@@ -1,4 +1,6 @@
 var w = 1000, h = 100;
+var textPadding = 5; // Used to offset text from the axes
+var textHeight = 12;
 
 // Plot shell
 var visPop = d3.select("div#pop div.right").append("svg:svg")
@@ -219,6 +221,20 @@ plotAllGeneric = function(data, element, field, min, max) {
 			.attr("x2", function(d) { return plotRange( d[field] ) })
 			.attr("y2", h * 0.65);
 
+	// Label upper and lower bounds
+	var bounds = element.append("g")
+		.attr("class","bounds");
+
+	bounds.append("text")
+		.attr("x", 0+textPadding)
+		.attr("y", h)
+		.text(min);
+
+	bounds.append("text")
+		.attr("text-anchor","end")
+		.attr("x", w-textPadding)
+		.attr("y", h)
+		.text(max);
 };
 
 plotAllLibrary = function(data, element, field, min, max) {
@@ -241,4 +257,23 @@ plotAllLibrary = function(data, element, field, min, max) {
 			.attr("x2", function(d) { return plotRange( d[field] ) })
 			.attr("y2", h * 0.8);
 
+	// Label this value
+	var label = element.append("g")
+		.attr("class","label");
+
+	label.selectAll("line")
+		.data(data)
+		.enter()
+		.append("text")
+			.attr("text-anchor", function(d) {
+				if ( d[field] < (max-min) / 2) {
+					console.log(d[field]);
+					return "start";
+				} else {
+					return "end";
+				}
+			})
+			.attr("x", function(d) { console.log(d); return plotRange( d[field] ) })
+			.attr("y", textHeight)
+			.text(function(d) { return d[field] });
 };

@@ -408,11 +408,21 @@ function changeEventHandler(event) {
             svg g.context line {
                 stroke-width: 1;
                 stroke: #565656;
+                opacity: 0.25;
             }
 
             svg g.highlight line {
                 stroke-width: 3;
                 stroke: red;
+            }
+
+            svg text {
+                font-size: 12px;
+                font-family: "Open Sans", sans-serif;
+            }
+
+            svg g.label text {
+                fill: #800000;
             }
         </style>
     </body>
