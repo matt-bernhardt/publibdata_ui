@@ -1,4 +1,6 @@
 var w = 1000, h = 100;
+var textPadding = 5; // Used to offset text from the axes
+var textHeight = 12;
 
 // Plot shell
 var visPop = d3.select("div#pop div.right").append("svg:svg")
@@ -175,66 +177,29 @@ buildFrame = function(element) {
 };
 
 cleanAllData = function(data) {
-	console.log('Cleaning data');
-	console.log(data);
-
 	var newData = [];
 
 	for (i = 0; i < data.length; i++) {
 		newData.push(data[i]._source);
 	}
 
-	console.log('Cleaned:');
-	console.log(newData);
-
 	return newData;
 }
 
 cleanLibraryData = function(data) {
-	console.log('Cleaning data');
-	console.log(data);
-
 	var newData = [];
 
 	for (i = 0; i < data.length; i++) {
+		// This step is necessary because it wasn't possible to just query the API for 2016
+		// TODO: Query the API for just a single year
+		// Once that's done, this function can go away
 		if (data[i]._source['Year'] == 2016) {
 			newData.push(data[i]._source);
 		}
 	}
 
-	console.log('Cleaned:');
-	console.log(newData);
-
 	return newData;
 }
-
-cleanData = function(data) {
-	console.log('Cleaning data');
-	console.log(data);
-
-	// Build new data structure
-	var newData = {};
-	// newData.theirs is an array of all records, simplified
-	newData.theirs = [];
-	// newData.ours is an object of the record we are highlighting
-	newData.ours = [];
-
-	// Iterate over original data, simplifying data structuree
-	// I know, this should be a map function
-	for (i = 0; i < data.length; i++) {
-		newData.theirs.push(data[i]._source);
-
-		// Check whether we should calll out each record
-		if (data[i]._source['Year'] == 2016) {
-			newData.ours.push(data[i]._source);
-		}
-	}
-
-	console.log('Cleaned:');
-	console.log(newData);
-
-	return newData;
-};
 
 plotAllGeneric = function(data, element, field, min, max) {
 
@@ -256,6 +221,20 @@ plotAllGeneric = function(data, element, field, min, max) {
 			.attr("x2", function(d) { return plotRange( d[field] ) })
 			.attr("y2", h * 0.65);
 
+	// Label upper and lower bounds
+	var bounds = element.append("g")
+		.attr("class","bounds");
+
+	bounds.append("text")
+		.attr("x", 0+textPadding)
+		.attr("y", h)
+		.text(min);
+
+	bounds.append("text")
+		.attr("text-anchor","end")
+		.attr("x", w-textPadding)
+		.attr("y", h)
+		.text(max);
 };
 
 plotAllLibrary = function(data, element, field, min, max) {
@@ -278,42 +257,23 @@ plotAllLibrary = function(data, element, field, min, max) {
 			.attr("x2", function(d) { return plotRange( d[field] ) })
 			.attr("y2", h * 0.8);
 
-};
+	// Label this value
+	var label = element.append("g")
+		.attr("class","label");
 
-plotInfo = function(data, element) {
-	console.log('Plotting:');
-	console.log(data);
-	console.log(element);
-
-	// Scale
-	var plotRange = d3.scaleLinear()
-		.domain([0,700000]) // Range of data
-		.range([0,w]); // Range of plot
-
-	// Context lines
-	var context = visPop.append("g")
-		.attr("class","context");
-
-	context.selectAll("line")
-		.data(data.theirs)
+	label.selectAll("line")
+		.data(data)
 		.enter()
-		.append("line")
-			.attr("x1", function(d) { return plotRange( d['Municipality Population-- do not change or edit - click to see definition'] )	})
-			.attr("y1", h * 0.35)
-			.attr("x2", function(d) { return plotRange( d['Municipality Population-- do not change or edit - click to see definition'] ) })
-			.attr("y2", h * 0.65);
-
-	// Highlight line
-	var highlight = visPop.append("g")
-		.attr("class","highlight");
-
-	highlight.selectAll("line")
-		.data(data.ours)
-		.enter()
-		.append("line")
-			.attr("x1", function(d) { return plotRange( d['Municipality Population-- do not change or edit - click to see definition'] ) })
-			.attr("y1", h * 0.25)
-			.attr("x2", function(d) { return plotRange( d['Municipality Population-- do not change or edit - click to see definition'] ) })
-			.attr("y2", h * 0.75);
-
+		.append("text")
+			.attr("text-anchor", function(d) {
+				if ( d[field] < (max-min) / 2) {
+					console.log(d[field]);
+					return "start";
+				} else {
+					return "end";
+				}
+			})
+			.attr("x", function(d) { console.log(d); return plotRange( d[field] ) })
+			.attr("y", textHeight)
+			.text(function(d) { return d[field] });
 };
