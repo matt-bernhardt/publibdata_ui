@@ -11,7 +11,35 @@ class controllersTest extends WebTestCase
         $crawler = $client->request('GET', '/');
 
         $this->assertTrue($client->getResponse()->isOk());
-        $this->assertContains('Welcome', $crawler->filter('body')->text());
+        $this->assertContains('PubLibData lets librarians', $crawler->filter('body')->text());
+    }
+
+    public function testGetLibraryPage()
+    {
+        $client = $this->createClient();
+        $client->followRedirects(true);
+        $crawler = $client->request('GET', '/library/Abington');
+
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertContains('Abington', $crawler->filter('body')->text());
+    }
+
+    public function testGetYearAPI()
+    {
+        $client = $this->createClient();
+        $client->followRedirects(true);
+        $crawler = $client->request('GET', '/library_year/2016');
+
+        $this->assertTrue($client->getResponse()->isOk());
+    }
+
+    public function testGetLibraryAPI()
+    {
+        $client = $this->createClient();
+        $client->followRedirects(true);
+        $crawler = $client->request('GET', '/library_location/Abington');
+
+        $this->assertTrue($client->getResponse()->isOk());
     }
 
     public function createApplication()
