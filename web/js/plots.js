@@ -34,8 +34,8 @@ var visIllOut = d3.select("div#illProvided div.right").append("svg:svg")
 
 // ILL Provided
 var visIllScatter = d3.select("div#illScatter div.right").append("svg:svg")
-	.attr("width",w)
-	.attr("height",w); // Scatterplot should be square
+	.attr("width",600)
+	.attr("height",600); // Scatterplot should be square
 
 // Computers
 var visComputers = d3.select("div#computers div.right").append("svg:svg")
@@ -95,6 +95,7 @@ d3.json("/library_year/2016", function(error, data) {
 		plotAllGeneric(records, visIllOut, 'ILL Provided', 0, 175000);
 
 		buildScatter(visIllScatter);
+		plotAllScatter(records, visIllScatter, 'ILL Received', 'ILL Provided', 0, 250000, 0, 175000);
 
 		buildFrame(visComputers);
 		plotAllGeneric(records, visComputers, "1 Number of public use Internet computers available in the library (including children's area) and its branches and bookmobiles", 0, 800);
@@ -184,8 +185,15 @@ buildFrame = function(element) {
 };
 
 buildScatter = function(element) {
+
 	var frame = element.append("g")
 		.attr("class","frame");
+
+	frame.append("svg:rect")
+		.attr("x",25)
+		.attr("y",25)
+		.attr("width",550)
+		.attr("height",550);
 };
 
 cleanAllData = function(data) {
