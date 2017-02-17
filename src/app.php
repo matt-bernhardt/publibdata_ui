@@ -8,19 +8,20 @@ use Silex\Provider\HttpFragmentServiceProvider;
 use Elasticsearch\ClientBuilder;
 
 $app = new Application();
-$app['debug'] = TRUE;
+$app['debug'] = true;
 $app->register(new ServiceControllerServiceProvider());
 $app->register(new AssetServiceProvider());
 $app->register(new TwigServiceProvider());
 $app->register(new HttpFragmentServiceProvider());
 
-$app['elasticsearch'] = function() {
-  $hosts = [
-      '52.87.178.46:9200'
-  ];
-  
-  $client = ClientBuilder::create()->setHosts($hosts)->build();   // Instantiate a new ClientBuilder
-  return $client;
+$app['elasticsearch'] = function () {
+    $hosts = [
+        '52.87.178.46:9200',
+    ];
+
+    $client = ClientBuilder::create()->setHosts($hosts)->build();   // Instantiate a new ClientBuilder
+
+    return $client;
 };
 
 $app['twig'] = $app->extend('twig', function ($twig, $app) {

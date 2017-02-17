@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ruleset name="PHP Coding Standards">
+	<!-- See https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml -->
+
+	<!-- Set a description for this ruleset. -->
+	<description>A custom set of code standards to check for the forms system.</description>
+
+	<!-- Declare what files (usually external libraries) shouldn't be checked. -->
+	<exclude-pattern>/php-codesniffer/*</exclude-pattern>
+	<exclude-pattern>/Symfony2-coding-standard/*</exclude-pattern>
+	<exclude-pattern>/vendor/*</exclude-pattern>
+
+	<!-- Include the various rulesets, with exclusions. -->
+	<rule ref="Symfony2">
+	</rule>
+
+</ruleset>

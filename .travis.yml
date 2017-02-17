@@ -1,0 +1,58 @@
+# Travis CI (MIT License) configuration file
+# @link https://travis-ci.org/
+
+# For use with the PubLibData project.
+# @link https://github.com/matt-bernhardt/publibdata_ui
+
+# Declare project language.
+# @link http://about.travis-ci.org/docs/user/languages/php/
+language: php
+
+# Declare versions of PHP to use. Use one decimal max.
+php:
+  - "7.0"
+
+# No environment variables
+
+# Use this to prepare your build for testing.
+# e.g. copy database configurations, environment variables, etc.
+# Failures in this section will result in build status 'errored'.
+before_script:
+  # Install / update application packages
+  - composer update
+
+  # Install CodeSniffer
+  - git clone https://github.com/squizlabs/PHP_CodeSniffer.git php-codesniffer
+  # Install Symfony2 coding standards.
+  - git clone https://github.com/djoos/Symfony2-coding-standard.git Symfony2-coding-standard
+  # Hop into CodeSniffer directory.
+  - cd php-codesniffer
+  # Set install path for Symfony2 coding standards.
+  # @link https://github.com/squizlabs/PHP_CodeSniffer/blob/4237c2fc98cc838730b76ee9cee316f99286a2a7/CodeSniffer.php#L1941
+  - scripts/phpcs --config-set installed_paths ../Symfony2-coding-standard
+  # After CodeSniffer install you should refresh your path.
+  - phpenv rehash
+  # Go back home
+  - cd ..
+
+# Run test script commands.
+# Default is specific to project language.
+# All commands must exit with code 0 on success. Anything else is considered failure.
+script:
+  # Search for PHP syntax errors outside the vendor directory
+  - find . \( -path ./vendor -o -path ./php-codesniffer \) -prune -o -name '*.php' -exec php -lf {} \;
+
+  # PHPCS Coding Standards
+  # @link http://pear.php.net/package/PHP_CodeSniffer/
+  # -p flag: Show progress of the run.
+  # -s flag: Show sniff codes in all reports.
+  # -v flag: Print verbose output.
+  # -n flag: Do not print warnings. (shortcut for --warning-severity=0)
+  # --standard: declare what standard to use.
+  # --extensions: Only sniff PHP files.
+  # --report=source: Return summary table
+  # --report=full: Returns verbose list of problems by test and line
+  - ./php-codesniffer/scripts/phpcs -p -s -v -n . --standard=./codesniffer.ruleset.xml --extensions=php --report=source --report=full
+
+  # PHPUnit for testing
+  - phpunit
