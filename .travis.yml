@@ -24,8 +24,13 @@ before_script:
 
   # Install CodeSniffer
   - git clone https://github.com/squizlabs/PHP_CodeSniffer.git php-codesniffer
+  # Install Symfony2 coding standards.
+  - git clone https://github.com/djoos/Symfony2-coding-standard.git Symfony2-coding-standard
   # Hop into CodeSniffer directory.
   - cd php-codesniffer
+  # Set install path for Symfony2 coding standards.
+  # @link https://github.com/squizlabs/PHP_CodeSniffer/blob/4237c2fc98cc838730b76ee9cee316f99286a2a7/CodeSniffer.php#L1941
+  - scripts/phpcs --config-set installed_paths ../Symfony2-coding-standard
   # After CodeSniffer install you should refresh your path.
   - phpenv rehash
   # Go back home

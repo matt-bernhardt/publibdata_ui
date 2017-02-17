@@ -21,45 +21,47 @@ $app->get('/library/{id}', function ($id) use ($app) {
     return $app['twig']->render('library.html.twig', array('id' => $id));
 });
 
-$app->get('/library_location/{id}', function ($id) use ($app) { 
+$app->get('/library_location/{id}', function ($id) use ($app) {
   
-  $client = $app['elasticsearch'];
-  $params = [
-      'index' => 'publiclibdata',
-      'type' => 'logs',
-      'size' => 5,
-      'body' => [
-          'query' => [
-              'match' => [
-                  'Location' => trim($id)
-              ]
-          ]
-      ]
-  ];
+    $client = $app['elasticsearch'];
+    $params = [
+        'index' => 'publiclibdata',
+        'type' => 'logs',
+        'size' => 5,
+        'body' => [
+            'query' => [
+                'match' => [
+                    'Location' => trim($id),
+                ],
+            ],
+        ],
+    ];
   
-  $response = $client->search($params);
-  return new JsonResponse($response);
+    $response = $client->search($params);
+
+    return new JsonResponse($response);
 })
 ->value("id", "*"); // set a default value
 
-$app->get('/library_year/{id}', function ($id) use ($app) { 
+$app->get('/library_year/{id}', function ($id) use ($app) {
   
-  $client = $app['elasticsearch'];
-  $params = [
-      'index' => 'publiclibdata',
-      'type' => 'logs',
-      'size' => 500,
-      'body' => [
-          'query' => [
-              'match' => [
-                  'Year' => trim($id)
-              ]
-          ]
-      ]
-  ];
-  
-  $response = $client->search($params);
-  return new JsonResponse($response);
+    $client = $app['elasticsearch'];
+    $params = [
+        'index' => 'publiclibdata',
+        'type' => 'logs',
+        'size' => 500,
+        'body' => [
+            'query' => [
+                'match' => [
+                    'Year' => trim($id),
+                ],
+            ],
+        ],
+    ];
+
+    $response = $client->search($params);
+
+    return new JsonResponse($response);
 })
 ->value("id", "2016"); // set a default value
 

@@ -7,10 +7,11 @@
 
 	<!-- Declare what files (usually external libraries) shouldn't be checked. -->
 	<exclude-pattern>/php-codesniffer/*</exclude-pattern>
+	<exclude-pattern>/Symfony2-coding-standard/*</exclude-pattern>
 	<exclude-pattern>/vendor/*</exclude-pattern>
 
 	<!-- Include the various rulesets, with exclusions. -->
-	<rule ref="PHPCS">
+	<rule ref="Symfony2">
 	</rule>
 
 </ruleset>
