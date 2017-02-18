@@ -1,7 +1,24 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-      <h2>{{ id }}</h2>
+  <h2>{{ id }}</h2>
+  <div id="tabs">
+    <ul>
+      <li><a href="#basic">Basic</a></li>
+      <li><a href="#charts">Charts</a></li>
+    </ul>
+    <div id="basic">
+      <div id="pop">
+        <div class="left">
+          <p><i class="fa fa-home fa-4x"></i><br/>
+            <span class="label">Population</span>
+            <span class="caption">Based on 2010 census data</span>
+          </p>
+        </div><!-- end .left -->
+        <br class="clear">
+      </div><!-- end #pop -->
+    </div>
+    <div id="charts">
       <div id="pop">
         <div class="left">
           <p><i class="fa fa-home fa-4x"></i><br/>
@@ -115,33 +132,42 @@
           <p><i class="fa fa-user fa-3x"></i>&nbsp;<i class="fa fa-bug fa-lg"></i><br/>
             <span class="label">Programs for Children</span>
             <span class="caption">&nbsp;</span>
-          </div><!-- end .left -->
-          <div class="right">
-          </div><!-- end .right -->
-          <br class="clear">
-        </div><!-- end #programChildren -->
+          </p>
+        </div><!-- end .left -->
+        <div class="right">
+        </div><!-- end .right -->
+        <br class="clear">
+      </div><!-- end #programChildren -->
 
-        <div id="programTeen">
-          <div class="left">
-            <p><i class="fa fa-user fa-3x"></i>&nbsp;<i class="fa fa-angellist fa-lg"></i><br/>
-              <span class="label">Programs for Teens</span>
-              <span class="caption">&nbsp;</span>
-            </div><!-- end .left -->
-            <div class="right">
-            </div><!-- end .right -->
-            <br class="clear">
-          </div><!-- end #programTeen -->
+      <div id="programTeen">
+        <div class="left">
+          <p><i class="fa fa-user fa-3x"></i>&nbsp;<i class="fa fa-angellist fa-lg"></i><br/>
+            <span class="label">Programs for Teens</span>
+            <span class="caption">&nbsp;</span>
+          </p>
+        </div><!-- end .left -->
+        <div class="right">
+        </div><!-- end .right -->
+        <br class="clear">
+      </div><!-- end #programTeen -->
 
-          <div id="programAdult">
-            <div class="left">
-              <p><i class="fa fa-user fa-3x"></i>&nbsp;<i class="fa fa-paint-brush fa-lg"></i><br/>
-                <span class="label">Programs for Adults</span>
-                <span class="caption">&nbsp;</span>
-              </p>
-            </div><!-- end .left -->
-            <div class="right">
-            </div><!-- end .right -->
-            <br class="clear">
-          </div><!-- end #programAdult -->
-          
+      <div id="programAdult">
+        <div class="left">
+          <p><i class="fa fa-user fa-3x"></i>&nbsp;<i class="fa fa-paint-brush fa-lg"></i><br/>
+            <span class="label">Programs for Adults</span>
+            <span class="caption">&nbsp;</span>
+          </p>
+        </div><!-- end .left -->
+        <div class="right">
+        </div><!-- end .right -->
+        <br class="clear">
+      </div><!-- end #programAdult -->
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $( function() {
+      $( "#tabs" ).tabs();
+    } );
+  </script>          
 {% endblock %}
